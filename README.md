@@ -36,15 +36,15 @@ The system supports the following commands:
 ## Data Structures
 -	Columns are dynamically allocated using calloc().
 -	Memory is released using free() after use.
-typedef struct {
-    char name[30];
-    char dataType[10];
-} Column;
-
-typedef struct {
-    char name[50];
-    int columnCount;
-    Column *columns;
+typedef struct { <br>
+    char name[30]; <br>
+    char dataType[10]; <br>
+} Column; <br>
+ <br>
+typedef struct { <br>
+    char name[50]; <br>
+    int columnCount; <br>
+    Column *columns; <br>
 } Table;
 
 ## File Storage Structure
@@ -91,8 +91,8 @@ This allows us to compile the project in Windows Mac Os and LINUX
 - Structured Programming
 
 ## Author
-- Sarthak Acharya
-- Thapathali Campus 
+Sarthak Acharya  <br>
+Thapathali Campus 
 
 
 
