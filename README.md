@@ -36,6 +36,7 @@ The system supports the following commands:
 ## Data Structures
 -	Columns are dynamically allocated using calloc().
 -	Memory is released using free() after use.  <br>
+
 typedef struct { <br>
     char name[30]; <br>
     char dataType[10]; <br>
