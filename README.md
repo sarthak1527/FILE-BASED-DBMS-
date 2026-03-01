@@ -7,35 +7,35 @@ It simulates basic database operations such as creating databases, creating tabl
 The system is lightweight, file-based, and designed to demonstrate core DBMS concepts like query parsing, file handling, and dynamic memory allocation.
 
 ## Objectives
-•	Implement fundamental DBMS operations in C
-•	Practice file handling in C
-•	Use dynamic memory allocation (malloc(), calloc( ), free( ))
-•	Implement command parsing using strtok( )
-•	Use enum and switch-case for structured command execution
-•	Support cross-platform compilation (Windows & macOS/Linux)
+- Implement fundamental DBMS operations in C
+-	Practice file handling in C
+-	Use dynamic memory allocation (malloc(), calloc( ), free( ))
+-	Implement command parsing using strtok( )
+-	Use enum and switch-case for structured command execution
+-	Support cross-platform compilation (Windows & macOS/Linux)
 
 ## Features
 The system supports the following commands:
-•	CREATE DATABASE <name>
-•	USE <database_name>
-•	CREATE TABLE <table_name> column1,column2,column3
-•	INSERT <table_name> value1,value2,value3
-•	SELECT * FROM <table_name>
-•	DELETE <table_name> WHERE column=value
-•	DROP TABLE <table_name>
-•	EXIT
+-	CREATE DATABASE <name> 
+-	USE <database_name>
+-	CREATE TABLE <table_name> column1,column2,column3
+-	INSERT <table_name> value1,value2,value3
+-	SELECT * FROM <table_name>
+-	DELETE <table_name> WHERE column=value
+-	DROP TABLE <table_name>
+-	EXIT
 
 ## Working Principle
-•	The program reads user input using fgets().
-•	The input string is tokenized using strtok().
-•	The first token is mapped to a command using enum.
-•	A switch-case block executes the corresponding function.
-•	Tables are stored as .txt files inside database folders.
-•	Data persists in files even after program termination. 
+-	The program reads user input using fgets().
+-	The input string is tokenized using strtok().
+-	The first token is mapped to a command using enum.
+-	A switch-case block executes the corresponding function.
+-	Tables are stored as .txt files inside database folders.
+-	Data persists in files even after program termination. 
 
 ## Data Structures
-•	Columns are dynamically allocated using calloc().
-•	Memory is released using free() after use.
+-	Columns are dynamically allocated using calloc().
+-	Memory is released using free() after use.
 typedef struct {
     char name[30];
     char dataType[10];
@@ -48,10 +48,10 @@ typedef struct {
 } Table;
 
 ## File Storage Structure
-• Each database is a folder.
-• Each table is a text file.
-•	First line of file stores column names.
-•	Subsequent lines store row data.
+- Each database is a folder.
+- Each table is a text file.
+- First line of file stores column names.
+- Subsequent lines store row data.
 
 ## Cross-Platform Support
 The project uses conditional compilation:
@@ -63,11 +63,11 @@ The project uses conditional compilation:
 This allows us to compile the project in Windows Mac Os and LINUX 
  
  ## Advantages
- •	Lightweight and simple
- •  Demonstrates core DBMS logic
- • Uses dynamic memory
- • Cross-platform compatible
- • Easy to extend
+ -	Lightweight and simple
+ -  Demonstrates core DBMS logic
+ - Uses dynamic memory
+ - Cross-platform compatible
+ - Easy to extend
 
 ## Limitations
 i.	No indexing
