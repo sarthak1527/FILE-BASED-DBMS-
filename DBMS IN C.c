@@ -74,7 +74,12 @@ void createDatabase(char *name) {
 void useDatabase(char *name) {
     char path[300];
     sprintf(path, "%s%s%s", basePath, PATH_SEP, name);
-    MKDIR(basePath);
+
+    if (access(path, F_OK) != 0) {
+        printf("Database does not exist.\n");
+        return;
+    }
+
     strcpy(currentDB, path);
     printf("Using database '%s'\n", name);
 }
@@ -108,7 +113,13 @@ void createTable(char *name, char *columnsStr) {
 
     char filePath[300];
     sprintf(filePath, "%s%s%s.txt", currentDB, PATH_SEP, name);
-
+FILE *check = fopen(filePath, "r");
+if (check) {
+    fclose(check);
+    printf("Table already exists.\n");
+    free(tbl.columns);
+    return;
+}
     FILE *fp = fopen(filePath, "w");
     for (i = 0; i < tbl.columnCount; i++)
         fprintf(fp, "%s,", tbl.columns[i].name);
@@ -122,21 +133,45 @@ void createTable(char *name, char *columnsStr) {
 
 /* ---------------- INSERT ---------------- */
 void insertInto(char *table, char *values) {
+
+    if (strlen(currentDB) == 0) {
+        printf("Select a database first.\n");
+        return;
+    }
+
     char filePath[300];
     sprintf(filePath, "%s%s%s.txt", currentDB, PATH_SEP, table);
 
-    FILE *fp = fopen(filePath, "a");
+    FILE *fp = fopen(filePath, "r");
     if (!fp) {
         printf("Table not found.\n");
         return;
     }
 
+    char header[500];
+    fgets(header, sizeof(header), fp);
+
+    int colCount = 1;
+    for (int i = 0; header[i]; i++)
+        if (header[i] == ',') colCount++;
+
+    fclose(fp);
+
+    int valCount = 1;
+    for (int i = 0; values[i]; i++)
+        if (values[i] == ',') valCount++;
+
+    if (colCount != valCount) {
+        printf("Column count mismatch.\n");
+        return;
+    }
+
+    fp = fopen(filePath, "a");
     fprintf(fp, "%s\n", values);
     fclose(fp);
 
     printf("Row inserted into '%s'.\n", table);
 }
-
 /* ---------------- SELECT ---------------- */
 void selectAll(char *table) {
     char filePath[300];
@@ -188,7 +223,13 @@ void deleteWhere(char *table, char *column, char *value) {
         colCount++;
         tok = strtok(NULL, ",");
     }
-
+if (colIdx == -1) {
+    printf("Column not found.\n");
+    fclose(fp);
+    fclose(temp);
+    remove(tempPath);
+    return;
+}
     char line[500];
     int deleted = 0;
 
@@ -292,4 +333,5 @@ int main() {
 
     return 0;
 }
+
 
